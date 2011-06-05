@@ -36,12 +36,14 @@
 
 <body>
 
-  <div id="container">
+  <div id="container" style="height:500px;width:500px;margin:0 auto;">
     <header>
 
     </header>
     <div id="main" role="main">
-
+        <h1>Camera</h1>
+        <div id="camera" style="display:block">
+        </div>
     </div>
     <footer>
 
@@ -57,8 +59,22 @@
 
 
   <!-- scripts concatenated and minified via ant build script-->
+  <script src="js/mylibs/jquery.webcam.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/script.js"></script>
+  <script>
+$("#camera").webcam({
+        width: 320,
+        height: 240,
+        mode: "callback",
+        swffile: "./js/mylibs/jscam_canvas_only.swf",
+        onTick: function() {},
+        onSave: function() {},
+        onCapture: function() {},
+        debug: function() {},
+        onLoad: function() {}
+});
+  </script>
   <!-- end scripts-->
 
 
