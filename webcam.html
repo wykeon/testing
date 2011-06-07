@@ -41,8 +41,17 @@
 
     </header>
     <div id="main" role="main">
-        <h1>Camera</h1>
+        <h2>Camera View</h2>
         <div id="camera" style="display:block">
+        </div>
+        <div id="nav">
+        <button id="shoot">take pic</button>
+        </div>
+        <h2>Cameras</h2>
+        <ul id="cams">
+        </ul>
+        <h2>Status</h2>
+        <div id="status">
         </div>
     </div>
     <footer>
@@ -66,14 +75,28 @@
 $("#camera").webcam({
         width: 320,
         height: 240,
-        mode: "callback",
-        swffile: "./js/mylibs/jscam_canvas_only.swf",
+        mode: "save",
+        swffile: "./js/mylibs/jscam.swf",
         onTick: function() {},
-        onSave: function() {},
-        onCapture: function() {},
-        debug: function() {},
-        onLoad: function() {}
+        onSave: function(data) {},
+        onCapture: function() {
+        },
+        debug: function(type, string) {
+            $("#status").html(type + ": "+ string);
+        },
+        onLoad: function() {
+            var cams = webcam.getCameraList();
+            for (var i in cams){
+                $('#cams').append("<li>"+cams[i]+"</li>");
+            }
+
+        }
 });
+$("#shoot").click(function(){
+    webcam.capture();
+    webcam.save('tmp.jpg');
+});
+
   </script>
   <!-- end scripts-->
 
@@ -85,12 +108,12 @@ $("#camera").webcam({
 
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
+  <!--<script>
     var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
     g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
     s.parentNode.insertBefore(g,s)}(document,"script"));
-  </script>
+</script>-->
 
 </body>
 </html>
